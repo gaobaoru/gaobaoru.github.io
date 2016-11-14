@@ -1,0 +1,464 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+死磕自己，成长大家。
+
+=========简单构造函数=========
+
+一、上周已经详细介绍了构造函数，这里只需要说明一点，就是要明确一下写作规范，书写构造函数时最好使用this指针，即： 
+
+this->width = width;
+
+this->height = height;
+
+this指针明确指出了等号左边是当前类的成员，否则写成下面代码会让人混乱。
+
+width = width;
+
+height = height;
+
+当然你也可以定义其他变量名字，改变这种歧义，并同时进行初始化列表。
+
+=========拷贝构造函数=========
+
+        ​首先，拷贝构造函数中出现的通病应该是没有考虑到基类的继承，既然写了Shape基类，就不会白写，应该在编程的过程中重视代码中的每一条语句，要做到不添加无用代码，也不忽视程序中出现的每一句代码。
+
+        ​其次，拷贝构造函数中还要注意代码的鲁棒性，编写任何程序都应该注意这个问题，编写函数时要防止外部代码改变导致本函数失效或者导致程序崩溃。在本次拷贝构造函数中，你可以对leftup中的x,y分别进行赋值，但前提是在你对Point类内部完全了解的情况下进行实现的，但是如果Point类中成员发生改变，你编写的拷贝构造函数也会相应失效，所以更合理的代码是写成下列形式：
+
+this->leftup = new Point(*(other.leftup));
+
+        ​接下来说说拷贝构造的顺序，这也是令人容易忽略的地方，
+
+inline
+Rectangle::Rectangle(const Rectangle& other):Shape(other),width(other.width),height(other.height)
+
+    ​    ​这里也不费口舌详细解释了，大家也应该知道了，拷贝构造的顺序与你书写的顺序没有关系，无论你写成什么顺序，编译器里已经约定好顺序，即先父类，后原类中对数据定义的顺序。因此，这里的建议就是为了阅读代码方便，书写顺序最好与拷贝构造的顺序一致。
+
+        ​最后，说说空指针的问题，如果你要拷贝构造的other是空指针，就没必要在堆中再创建分配，只能是浪费空间。因此，拷贝构造函数如下：
+
+inline
+Rectangle::Rectangle(const Rectangle& other):Shape(other),width(other.width),height(other.height){
+
+    if(other.leftup != nullptr){
+
+        this->leftup = new Point(*(other.leftup));
+
+    }
+
+    else{
+
+        this->leftup = nullptr;
+
+    }
+
+}
+
+=========拷贝赋值函数=========
+
+        ​拷贝赋值函数首先要做的就是自检，如果本身自己赋值，直接返回。
+if(this == &other)
+
+{
+
+    return *this;
+
+}
+
+        ​同时，拷贝赋值函数也同样需要考虑基类的继承，李老师讲后令我豁然开朗，应该写成这样的形式：
+
+Shape::operator=(other);
+
+        ​这里就是把“operator=”看做一个整体，即Shape的成员函数，然后我们直接传入参数other，这样便调用了shape的默认构造函数，对no进行的赋值操作，这样做的好处是我们完全不必管Shape内部是如何实现的，只要做我们的赋值就可以了。
+
+        ​最后，拷贝赋值需要考虑other.leftUp指针和自身leftup指针为空的4种情况。首先我们要判断leftup是否为空，如果当前类成员leftup不为空的情况下，继续判断other.leftup是否为空，如果other.leftup不为空直接进行赋值，如果other.leftup为空，需要先delete当前类中的leftup，然后将其指向nullptr；如果当前类成员leftup为空的情况下，仍需要继续判断other.leftup是否为空，如果other.leftup不为空需要重新分配内存，并同时在堆中初始化，如果other.leftup为空，不需要任何操作。
+
+if(leftup != nullptr)
+
+{
+
+    if(other.leftup != nullptr)
+
+    {
+
+        *leftup = *(other.leftup);
+
+    }
+
+    else
+
+    {
+
+       delete leftup;//caution: memory leak
+
+       leftup = nullptr;
+
+    }
+
+}
+
+else
+
+{
+
+    if(other.leftup != nullptr)
+
+    {
+
+        leftup = new Point(*(other.leftup));
+
+    }
+
+}
+
+    ​    ​这里需要说明一点：只要代码能够表述上述意思即可，也可以先判断other.leftup，再判断leftup，效果是一样的。
+
+===========析构函数===========
+
+        ​析构函数比较简单，就是需要注意一点：
+
+inline
+Rectangle::~Rectangle()
+
+{
+
+    delete leftup;
+
+    leftup = nullptr;
+
+}
+
+        ​delete只是对指针的指向空间的释放，并不会改变指针的值，即指针不为空。指针的本身内容，即指向空间的地址，是没有发生变化的。同时，C++是可以delete空指针的，C++不能直接delete的是野指针，是会出问题的，所以一般指针被delete之后，最好立即赋值为空，以免被再次delete而出现问题。当指针为空指针时，没有空间可释放，也就不去释放了。有些代码表面看起来没用，但是要养成好习惯，否则bug出现的时候都不知道错误在哪里。
+
+===========补充杂谈===========
+
+1、Singleton模式小谈：
+
+        ​最好太依赖C++做Singleton模式，同时在讨论区内有Singleton模式多线程的实现说明如下：
+
+        ​在单线程下，C++确保这种内置的本地static对象在首次被调用时被初始化。但是在多线程环境下，这种做法会带来不确定性，在多线程下面有几种选择：(1) 虽然是多线程，但是一个进程中一定有一个主进程并且首先被执行，可以沿用meyers的实现方式，并在主线程里面初始化所有的Instance以确保在单线程环境下的Instance。也就是说，你要在主线程启动后，首先调用雷氏A::GetInstance()的函数返回本地静态引用；(2) 可以采用所谓“lock+double check”的方法，可以写成下列形式
+
+1.  #include 
+
+2.  static A* m_pInstance = NULL;
+
+3.  std::mutex Mutex; // mutex for critical section
+
+4.    
+
+5.  static A& A::GetInstance()
+
+6.  {
+
+7.    if (m_pInstance == NULL)
+
+8.        {
+
+9.            std::lock_guard lock(Mutex); //此处锁住临界区对象
+
+10.          if (m_pInstance == NULL)
+
+11.             { 
+
+12.                   // 此处再次检查m_pInstance，并初始化
+
+13.                   m_pInstance = new A();
+
+14.             }
+
+15.       }
+
+16.       return *m_pInstance;
+
+17.}
+
+使用：
+
+1.  A anInstance = A::GetInstance();
+
+2.  anInstance.SomeMethod();
+
+2、Code::Blocks 12.11 error about 'nullptr'：
+
+在所有代码完成以后，出现了一个意料之外的问题，error:'nullptr' was not declared in this scope.查本来以后是codeblocks这个IDE的问题，但查询资料后，了解到应该是GNU GCC编译器的问题，只需要在编译器敲入命令-std=gnu++0x.Code::Blocks集成了GNU GCC 编译器，具体解决方法如下：
+
+菜单栏->Settings->Compiler...,在页面中部勾选Have g++ follow the ComingC++0x ISo C++ language standard [-std=gnu++0x]。
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>死磕自己，成长大家。</p>
+
+<p>=========简单构造函数=========</p>
+
+<p>一、上周已经详细介绍了构造函数，这里只需要说明一点，就是要明确一下写作规范，书写构造函数时最好使用this指针，即： </p>
+
+<p>this-&gt;width = width;</p>
+
+<p>this-&gt;height = height;</p>
+
+<p>this指针明确指出了等号左边是当前类的成员，否则写成下面代码会让人混乱。</p>
+
+<p>width = width;</p>
+
+<p>height = height;</p>
+
+<p>当然你也可以定义其他变量名字，改变这种歧义，并同时进行初始化列表。</p>
+
+<p>=========拷贝构造函数=========</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​首先，拷贝构造函数中出现的通病应该是没有考虑到基类的继承，既然写了Shape基类，就不会白写，应该在编程的过程中重视代码中的每一条语句，要做到不添加无用代码，也不忽视程序中出现的每一句代码。</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​其次，拷贝构造函数中还要注意代码的鲁棒性，编写任何程序都应该注意这个问题，编写函数时要防止外部代码改变导致本函数失效或者导致程序崩溃。在本次拷贝构造函数中，你可以对leftup中的x,y分别进行赋值，但前提是在你对Point类内部完全了解的情况下进行实现的，但是如果Point类中成员发生改变，你编写的拷贝构造函数也会相应失效，所以更合理的代码是写成下列形式：</p>
+
+<p>this-&gt;leftup = new Point(*(other.leftup));</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​接下来说说拷贝构造的顺序，这也是令人容易忽略的地方，</p>
+
+<p>inline
+Rectangle::Rectangle(const Rectangle&amp; other):Shape(other),width(other.width),height(other.height)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;​&nbsp;&nbsp;&nbsp;&nbsp;​这里也不费口舌详细解释了，大家也应该知道了，拷贝构造的顺序与你书写的顺序没有关系，无论你写成什么顺序，编译器里已经约定好顺序，即先父类，后原类中对数据定义的顺序。因此，这里的建议就是为了阅读代码方便，书写顺序最好与拷贝构造的顺序一致。</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​最后，说说空指针的问题，如果你要拷贝构造的other是空指针，就没必要在堆中再创建分配，只能是浪费空间。因此，拷贝构造函数如下：</p>
+
+<p>inline
+Rectangle::Rectangle(const Rectangle&amp; other):Shape(other),width(other.width),height(other.height){</p>
+
+<p>&nbsp;&nbsp;&nbsp; if(other.leftup != nullptr){</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this-&gt;leftup = new Point(*(other.leftup));</p>
+
+<p>&nbsp;&nbsp;&nbsp; }</p>
+
+<p>&nbsp;&nbsp;&nbsp; else{</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this-&gt;leftup = nullptr;</p>
+
+<p>&nbsp;&nbsp;&nbsp; }</p>
+
+<p>}</p>
+
+<p>=========拷贝赋值函数=========</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​拷贝赋值函数首先要做的就是自检，如果本身自己赋值，直接返回。
+if(this == &amp;other)</p>
+
+<p>{</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;return *this;</p>
+
+<p>}</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​同时，拷贝赋值函数也同样需要考虑基类的继承，李老师讲后令我豁然开朗，应该写成这样的形式：</p>
+
+<p>Shape::operator=(other);</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​这里就是把“operator=”看做一个整体，即Shape的成员函数，然后我们直接传入参数other，这样便调用了shape的默认构造函数，对no进行的赋值操作，这样做的好处是我们完全不必管Shape内部是如何实现的，只要做我们的赋值就可以了。</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​最后，拷贝赋值需要考虑other.leftUp指针和自身leftup指针为空的4种情况。首先我们要判断leftup是否为空，如果当前类成员leftup不为空的情况下，继续判断other.leftup是否为空，如果other.leftup不为空直接进行赋值，如果other.leftup为空，需要先delete当前类中的leftup，然后将其指向nullptr；如果当前类成员leftup为空的情况下，仍需要继续判断other.leftup是否为空，如果other.leftup不为空需要重新分配内存，并同时在堆中初始化，如果other.leftup为空，不需要任何操作。</p>
+
+<p>if(leftup != nullptr)</p>
+
+<p>{</p>
+
+<p>&nbsp;&nbsp;&nbsp; if(other.leftup != nullptr)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*leftup = *(other.leftup);</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;else</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete leftup;//caution: memory leak</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;leftup = nullptr;</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+
+<p>}</p>
+
+<p>else</p>
+
+<p>{</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;if(other.leftup != nullptr)</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;leftup = new Point(*(other.leftup));</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+
+<p>}</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;​&nbsp;&nbsp;&nbsp;&nbsp;​这里需要说明一点：只要代码能够表述上述意思即可，也可以先判断other.leftup，再判断leftup，效果是一样的。</p>
+
+<p>===========析构函数===========</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​析构函数比较简单，就是需要注意一点：</p>
+
+<p>inline
+Rectangle::~Rectangle()</p>
+
+<p>{</p>
+
+<p>&nbsp;&nbsp;&nbsp; delete leftup;</p>
+
+<p>&nbsp;&nbsp;&nbsp; leftup = nullptr;</p>
+
+<p>}</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​delete只是对指针的指向空间的释放，并不会改变指针的值，即指针不为空。指针的本身内容，即指向空间的地址，是没有发生变化的。同时，C++是可以delete空指针的，C++不能直接delete的是野指针，是会出问题的，所以一般指针被delete之后，最好立即赋值为空，以免被再次delete而出现问题。当指针为空指针时，没有空间可释放，也就不去释放了。有些代码表面看起来没用，但是要养成好习惯，否则bug出现的时候都不知道错误在哪里。</p>
+
+<p>===========补充杂谈===========</p>
+
+<p>1、Singleton模式小谈：</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​最好太依赖C++做Singleton模式，同时在讨论区内有Singleton模式多线程的实现说明如下：</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;​在单线程下，C++确保这种内置的本地static对象在首次被调用时被初始化。但是在多线程环境下，这种做法会带来不确定性，在多线程下面有几种选择：(1) 虽然是多线程，但是一个进程中一定有一个主进程并且首先被执行，可以沿用meyers的实现方式，并在主线程里面初始化所有的Instance以确保在单线程环境下的Instance。也就是说，你要在主线程启动后，首先调用雷氏A::GetInstance()的函数返回本地静态引用；(2) 可以采用所谓“lock+double check”的方法，可以写成下列形式</p>
+
+<p>1.&nbsp; #include&nbsp;</p>
+
+<p>2.&nbsp; static&nbsp;A*&nbsp;m_pInstance&nbsp;=&nbsp;NULL;</p>
+
+<p>3.&nbsp; std::mutex&nbsp;Mutex;&nbsp;//&nbsp;mutex&nbsp;for&nbsp;critical&nbsp;section</p>
+
+<p>4.&nbsp; &nbsp;&nbsp;</p>
+
+<p>5.&nbsp; static&nbsp;A&amp;&nbsp;A::GetInstance()</p>
+
+<p>6.&nbsp; {</p>
+
+<p>7.&nbsp; &nbsp;&nbsp;if&nbsp;(m_pInstance&nbsp;==&nbsp;NULL)</p>
+
+<p>8.&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</p>
+
+<p>9.&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;std::lock_guard&nbsp;lock(Mutex);&nbsp;//此处锁住临界区对象</p>
+
+<p>10.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(m_pInstance&nbsp;==&nbsp;NULL)</p>
+
+<p>11.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{&nbsp;</p>
+
+<p>12.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;此处再次检查m_pInstance，并初始化</p>
+
+<p>13.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;m_pInstance&nbsp;=&nbsp;new&nbsp;A();</p>
+
+<p>14.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+
+<p>15.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p>
+
+<p>16.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;*m_pInstance;</p>
+
+<p>17.}</p>
+
+<p>使用：</p>
+
+<p>1.&nbsp; A&nbsp;anInstance&nbsp;=&nbsp;A::GetInstance();</p>
+
+<p>2.&nbsp; anInstance.SomeMethod();</p>
+
+<p>2、Code::Blocks 12.11 error about 'nullptr'：</p>
+
+<p>在所有代码完成以后，出现了一个意料之外的问题，error:'nullptr' was not declared in this scope.查本来以后是codeblocks这个IDE的问题，但查询资料后，了解到应该是GNU GCC编译器的问题，只需要在编译器敲入命令-std=gnu++0x.Code::Blocks集成了GNU GCC 编译器，具体解决方法如下：</p>
+
+<p>菜单栏-&gt;Settings-&gt;Compiler...,在页面中部勾选Have g++ follow the ComingC++0x ISo C++ language standard [-std=gnu++0x]。</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "BigThree.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
