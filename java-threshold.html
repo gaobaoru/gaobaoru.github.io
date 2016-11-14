@@ -1,0 +1,241 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+Java学习---入门
+
+①	Java应用领域：开源成熟的软件体系，主流公司开源支持（Oracle(Sun)、IBM、Apache、Eclipse、JBoss、Spring等），渗入软件体系结构全层次（安全、移动、大数据、Web、网络等）；
+
+②	Java平台结构:  http://docs.oracle.com/javase/8/docs/index.html
+
+③	Java程序执行流程：  
+ Java源代码->编译->Java字节码->运行->JVM虚拟机
+
+④	一些Eclipse的热键使用：http://blog.sina.com.cn/s/blog_5fb39f910101dc2b.html
+Ctrl+Shift+r：打开资源；Ctrl+Shift+o：import package；
+
+⑤	Java基本数据类型：内置数据类型和引用数据类型；  
+
+☆内置数据类型：byte（8bit）、short（16bit）、int（32bit）、long（64bit）、
+float（32bit，精度7~8位）、double（64bit）
+char（16bit，默认’\u0000’）、boolean（1bit，但占一个字节）
+	
+☆引用数据类型：创建对象之后，由引用类型变量访问，默认为null
+					类class、接口interface、数组array   
+⑥	变量和常量：注意变量定义方式和常量定义前加final；  
+⑦	Java包需要引入import，import之后就不需要再使用全名进行引用；  
+⑧	修饰符总结：   
+☆访问修饰符：default、private、protected、public
+ 
+☆修饰符（final）：final变量一次初始化且不能修改；final方法不可被子类修改；final类不能被继承；
+
+注：对于对象引用的变量来说，变量指向的对象不能变，但对象里面的内容可以改变；  
+
+☆修饰符（abstract）：包含抽象方法的类，不可同时被final修饰，不能被实例化，为继承类提供了一个公共模板；
+ 
+☆修饰符（static）：无论一个类的对象有多少个，静态变量（方法）只有一份；static方法只能调用static属性；所以，将一个类所有对象希望共享的属性/方法，用static标识其共享性；
+
+☆修饰符（synchronized）：同时只能被一个线程使用；
+
+☆修饰符（volatile）：多线程中，变量操作及时刷新回主存，保证变量可见性；
+
+☆修饰符（transient）：序列化过程中略过属性；
+ 
+⑩	Java入门细节总结杂碎：
+
+1) do-while循环至少循环一次；for与while是永远等价的；一般写语句都加上大括号；  
+2) 选择：有固定次数用for；如果必须执行一次，用do…while()；其他情况用while()。  
+3) 编写程序流程：变量->算法->程序流程图->编写  
+4) break和continue的区别：break跳出循环，continue跳出本次循环，步进加一，继续下次循环；   
+5) 在多重循环过程中，循环如果想要跳出的话，可以在循环前加标号（如lable：），然后在相应的循环中使用该标号，使用break和continue对其操作；  
+6) 逻辑类型的优先级为！> && > ||;  
+7) 数组申请：int[] arr = new int[100]; 元素类型是确定的，元素个数是必须给出，元素个数可以是变量；  
+8) Java中编译器不会检查数组中是否用了有效的下标，但在运行的时候抛出异常；  
+9)  数组的长度在循环中最好使用arr.length（获取数组的大小），这样具有可扩展性代码；  
+10) 数组变量是数组的管理权限，如果数组变量赋值只能表示a和b都能管理这个数组，如果要实现数组的复制必须利用数组的遍历；  
+11) 遍历数组时可以用for循环也可以用for-each循环，但是for-each循环中不能获得下标，也不能修改数组，可以读出数组中的元素；  
+12) Java也用Unicode编码，字母和数字在Unicode表中是顺序排序的；
+
+13) 逃逸字符：\b：回退一格，并不是删除；\t：从下一个制表符开始；  
+14) 包裹类型：boolean ->Boolean;  int->Integer;  char->Character; double->Double；  
+15) String 是一个类，String变量是对象的管理者而不是所有者；输入方式：in.next()为一个单词（表示为空格），而in.nextLine()为一行；
+	
+16) 比较：==比较的是不是指向同一个对象，而equals比较的是内容是否相同；但跟数组不同的是，管理者可以改变原管理者的内容，而字符串只是地址发生了变化，内容不能改变；
+
+17) 字符串.操作：s1.compareTo(s2)比较大小1，0，-1；s.length()获得长度；s.charAt(index)访问字符串中的字符； 字符串不能用for-each循环，可枚举的才可以用；s.substring(index)获得子串，从index开始；s.substring(2,4)从2开始到4之前结束，即不包含尾部；s.indexOf(c)：寻找c，返回c开始出现的位置，否则为-1； s.index(c, loc+1)表示从loc+1开始寻找； 相应的有s.lastIndexOf(c)从右向左找；s.startsWith(t); s.endsWith(t);   s.replace(c1, c2);   s.trim()把字符串两端的空格删掉； s.toUpperCase();  s.toLowerCase();
+
+注：上面所有的操作都不是修改s本身，而是制造出新的字符串，字符串本身是不可修改的；
+	
+18） Math类：提供基本的数学操作，abs绝对值，pow幂次，random随机数，round四舍五入
+	
+19） 类型不匹配的情况：char->int->double，宽的可以接收窄的，编译器自动转换；
+
+20） 本地变量没有默认的初始化
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>Java学习---入门</p>
+
+<p>①    Java应用领域：开源成熟的软件体系，主流公司开源支持（Oracle(Sun)、IBM、Apache、Eclipse、JBoss、Spring等），渗入软件体系结构全层次（安全、移动、大数据、Web、网络等）；</p>
+
+<p>②    Java平台结构:  http://docs.oracle.com/javase/8/docs/index.html</p>
+
+<p>③    Java程序执行流程： <br>
+ Java源代码-&gt;编译-&gt;Java字节码-&gt;运行-&gt;JVM虚拟机</p>
+
+<p>④    一些Eclipse的热键使用：http://blog.sina.com.cn/s/blog_5fb39f910101dc2b.html
+Ctrl+Shift+r：打开资源；Ctrl+Shift+o：import package；</p>
+
+<p>⑤    Java基本数据类型：内置数据类型和引用数据类型；  </p>
+
+<p>☆内置数据类型：byte（8bit）、short（16bit）、int（32bit）、long（64bit）、
+float（32bit，精度7~8位）、double（64bit）
+char（16bit，默认’\u0000’）、boolean（1bit，但占一个字节）</p>
+
+<p>☆引用数据类型：创建对象之后，由引用类型变量访问，默认为null
+                    类class、接口interface、数组array <br>
+⑥    变量和常量：注意变量定义方式和常量定义前加final； <br>
+⑦    Java包需要引入import，import之后就不需要再使用全名进行引用； <br>
+⑧    修饰符总结： <br>
+☆访问修饰符：default、private、protected、public</p>
+
+<p>☆修饰符（final）：final变量一次初始化且不能修改；final方法不可被子类修改；final类不能被继承；</p>
+
+<p>注：对于对象引用的变量来说，变量指向的对象不能变，但对象里面的内容可以改变；  </p>
+
+<p>☆修饰符（abstract）：包含抽象方法的类，不可同时被final修饰，不能被实例化，为继承类提供了一个公共模板；</p>
+
+<p>☆修饰符（static）：无论一个类的对象有多少个，静态变量（方法）只有一份；static方法只能调用static属性；所以，将一个类所有对象希望共享的属性/方法，用static标识其共享性；</p>
+
+<p>☆修饰符（synchronized）：同时只能被一个线程使用；</p>
+
+<p>☆修饰符（volatile）：多线程中，变量操作及时刷新回主存，保证变量可见性；</p>
+
+<p>☆修饰符（transient）：序列化过程中略过属性；</p>
+
+<p>⑩    Java入门细节总结杂碎：</p>
+
+<p>1) do-while循环至少循环一次；for与while是永远等价的；一般写语句都加上大括号； <br>
+2) 选择：有固定次数用for；如果必须执行一次，用do…while()；其他情况用while()。 <br>
+3) 编写程序流程：变量-&gt;算法-&gt;程序流程图-&gt;编写 <br>
+4) break和continue的区别：break跳出循环，continue跳出本次循环，步进加一，继续下次循环； <br>
+5) 在多重循环过程中，循环如果想要跳出的话，可以在循环前加标号（如lable：），然后在相应的循环中使用该标号，使用break和continue对其操作； <br>
+6) 逻辑类型的优先级为！&gt; &amp;&amp; &gt; ||; <br>
+7) 数组申请：int[] arr = new int[100]; 元素类型是确定的，元素个数是必须给出，元素个数可以是变量； <br>
+8) Java中编译器不会检查数组中是否用了有效的下标，但在运行的时候抛出异常； <br>
+9)  数组的长度在循环中最好使用arr.length（获取数组的大小），这样具有可扩展性代码； <br>
+10) 数组变量是数组的管理权限，如果数组变量赋值只能表示a和b都能管理这个数组，如果要实现数组的复制必须利用数组的遍历； <br>
+11) 遍历数组时可以用for循环也可以用for-each循环，但是for-each循环中不能获得下标，也不能修改数组，可以读出数组中的元素； <br>
+12) Java也用Unicode编码，字母和数字在Unicode表中是顺序排序的；</p>
+
+<p>13) 逃逸字符：\b：回退一格，并不是删除；\t：从下一个制表符开始； <br>
+14) 包裹类型：boolean -&gt;Boolean;  int-&gt;Integer;  char-&gt;Character; double-&gt;Double； <br>
+15) String 是一个类，String变量是对象的管理者而不是所有者；输入方式：in.next()为一个单词（表示为空格），而in.nextLine()为一行；
+ <br>
+16) 比较：==比较的是不是指向同一个对象，而equals比较的是内容是否相同；但跟数组不同的是，管理者可以改变原管理者的内容，而字符串只是地址发生了变化，内容不能改变；</p>
+
+<p>17) 字符串.操作：s1.compareTo(s2)比较大小1，0，-1；s.length()获得长度；s.charAt(index)访问字符串中的字符； 字符串不能用for-each循环，可枚举的才可以用；s.substring(index)获得子串，从index开始；s.substring(2,4)从2开始到4之前结束，即不包含尾部；s.indexOf(c)：寻找c，返回c开始出现的位置，否则为-1； s.index(c, loc+1)表示从loc+1开始寻找； 相应的有s.lastIndexOf(c)从右向左找；s.startsWith(t); s.endsWith(t);   s.replace(c1, c2);   s.trim()把字符串两端的空格删掉； s.toUpperCase();  s.toLowerCase();</p>
+
+<p>注：上面所有的操作都不是修改s本身，而是制造出新的字符串，字符串本身是不可修改的；
+ <br>
+18） Math类：提供基本的数学操作，abs绝对值，pow幂次，random随机数，round四舍五入
+ <br>
+19） 类型不匹配的情况：char-&gt;int-&gt;double，宽的可以接收窄的，编译器自动转换；</p>
+
+<p>20） 本地变量没有默认的初始化</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "java-threshold.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
