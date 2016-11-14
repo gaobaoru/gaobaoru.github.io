@@ -25,36 +25,36 @@
 	</div>
 <div id="md" style="display: none;">
 <!-- markdown -->
-①	字符串补充：在Java中，一个字符串是一个对象，以String类型表示；String一共有13个构造函数，可供构造对象使用；String一旦创建，不可更改；区别”==” 与equals的不同；
+1、	字符串补充：在Java中，一个字符串是一个对象，以String类型表示；String一共有13个构造函数，可供构造对象使用；String一旦创建，不可更改；区别”==” 与equals的不同；
 
-②	常用类：https://docs.oracle.com/javase/8/docs/api/  
+2、常用类：https://docs.oracle.com/javase/8/docs/api/  
 1)Character、Byte、Short、Integer、Long、Float、Double、Boolean等  
 注：StringBuffer与StringBuilder都是可变字符串操作，但StringBuffer线程安全（从源代码StringBuffer函数前的synchronized可以看出），而StringBuilder非线程安全；
  
 2)System：标准输出System.out.println；错误输出System.out.println；标准输入Scanner(System.in)；数组拷贝；系统操作；文件加载System.loadLibrary(String libname)等；
 	Math：max，min，round，sqrt，exp，abs，random等
 
-③	方法也就是所谓的函数，基本用法类似；
+3、方法也就是所谓的函数，基本用法类似；
 
-④	Java异常体系：  
+4、Java异常体系：  
  ★Throwable：所有错误或异常的超类，只有对象是此类（或之类之一）的实例时，才可throw；   
  ★Exception：合理的应用程序想要捕获的条件，表示程序本身可以处理的异常；  
 注：当程序中出现RuntimeException异常时，及时有try…catch语句捕获它，也有throws字句声明抛出它，还是会编译通过；  
  ★Error：仅靠程序本身无法恢复的严重错误；
 
-⑤	函数异常声明：子类中覆盖了父类中的某一方法，那子类方法不可能比被其覆盖的父类方法抛出更多的异常，但可以更少；
+5、函数异常声明：子类中覆盖了父类中的某一方法，那子类方法不可能比被其覆盖的父类方法抛出更多的异常，但可以更少；
 
-⑥	捕获异常：  
+6、捕获异常：  
  ★Catch语句的排列顺序应该是从子类到父类，从上到下分别对每个catch语句处理的异常进行检测，直到匹配为止；  
  ★对于处理不了的异常或者要转型的异常，要通过throws抛出异常，不要吞异常； 
 
-⑦	如果每个方法都是简单的抛出异常，那么在方法调用方法的多层嵌套调用中，Java虚拟机会从出现异常的方法代码块中往回找，直到找到处理该异常的代码块，将异常交给相应的catch语句处理。
+7、如果每个方法都是简单的抛出异常，那么在方法调用方法的多层嵌套调用中，Java虚拟机会从出现异常的方法代码块中往回找，直到找到处理该异常的代码块，将异常交给相应的catch语句处理。
 
-⑧	如果Java虚拟机追溯到方法调用栈最底部main()方法时，仍没有找到处理异常的代码块，将按照下面的步骤处理：   
+8、如果Java虚拟机追溯到方法调用栈最底部main()方法时，仍没有找到处理异常的代码块，将按照下面的步骤处理：   
  ★调用异常的对象的printStackTrace()方法，打印方法调用栈的异常信息。  
  ★如果出现异常的线程为主线程，则整个程序运行终止；如果非主线程，则终止该线程，其他线程继续运行。 
 
-⑨	异常处理注意：  
+9、异常处理注意：  
 	不要轻易忽略捕获的异常；  
 	不要简单地捕获顶层的Exception；  
 	不要用Exception作流程控制。
@@ -63,36 +63,36 @@
 </div>
 <div class="entry" id="main">
 <!-- content -->
-<p>①    字符串补充：在Java中，一个字符串是一个对象，以String类型表示；String一共有13个构造函数，可供构造对象使用；String一旦创建，不可更改；区别”==” 与equals的不同；</p>
+<p>1、    字符串补充：在Java中，一个字符串是一个对象，以String类型表示；String一共有13个构造函数，可供构造对象使用；String一旦创建，不可更改；区别”==” 与equals的不同；</p>
 
-<p>②    常用类：https://docs.oracle.com/javase/8/docs/api/ <br>
+<p>2、常用类：https://docs.oracle.com/javase/8/docs/api/ <br>
 1)Character、Byte、Short、Integer、Long、Float、Double、Boolean等 <br>
 注：StringBuffer与StringBuilder都是可变字符串操作，但StringBuffer线程安全（从源代码StringBuffer函数前的synchronized可以看出），而StringBuilder非线程安全；</p>
 
 <p>2)System：标准输出System.out.println；错误输出System.out.println；标准输入Scanner(System.in)；数组拷贝；系统操作；文件加载System.loadLibrary(String libname)等；
     Math：max，min，round，sqrt，exp，abs，random等</p>
 
-<p>③    方法也就是所谓的函数，基本用法类似；</p>
+<p>3、方法也就是所谓的函数，基本用法类似；</p>
 
-<p>④    Java异常体系： <br>
+<p>4、Java异常体系： <br>
  ★Throwable：所有错误或异常的超类，只有对象是此类（或之类之一）的实例时，才可throw； <br>
  ★Exception：合理的应用程序想要捕获的条件，表示程序本身可以处理的异常； <br>
 注：当程序中出现RuntimeException异常时，及时有try…catch语句捕获它，也有throws字句声明抛出它，还是会编译通过； <br>
  ★Error：仅靠程序本身无法恢复的严重错误；</p>
 
-<p>⑤    函数异常声明：子类中覆盖了父类中的某一方法，那子类方法不可能比被其覆盖的父类方法抛出更多的异常，但可以更少；</p>
+<p>5、函数异常声明：子类中覆盖了父类中的某一方法，那子类方法不可能比被其覆盖的父类方法抛出更多的异常，但可以更少；</p>
 
-<p>⑥    捕获异常： <br>
+<p>6、捕获异常： <br>
  ★Catch语句的排列顺序应该是从子类到父类，从上到下分别对每个catch语句处理的异常进行检测，直到匹配为止； <br>
  ★对于处理不了的异常或者要转型的异常，要通过throws抛出异常，不要吞异常； </p>
 
-<p>⑦    如果每个方法都是简单的抛出异常，那么在方法调用方法的多层嵌套调用中，Java虚拟机会从出现异常的方法代码块中往回找，直到找到处理该异常的代码块，将异常交给相应的catch语句处理。</p>
+<p>7、如果每个方法都是简单的抛出异常，那么在方法调用方法的多层嵌套调用中，Java虚拟机会从出现异常的方法代码块中往回找，直到找到处理该异常的代码块，将异常交给相应的catch语句处理。</p>
 
-<p>⑧    如果Java虚拟机追溯到方法调用栈最底部main()方法时，仍没有找到处理异常的代码块，将按照下面的步骤处理： <br>
+<p>8、如果Java虚拟机追溯到方法调用栈最底部main()方法时，仍没有找到处理异常的代码块，将按照下面的步骤处理： <br>
  ★调用异常的对象的printStackTrace()方法，打印方法调用栈的异常信息。 <br>
  ★如果出现异常的线程为主线程，则整个程序运行终止；如果非主线程，则终止该线程，其他线程继续运行。 </p>
 
-<p>⑨    异常处理注意： <br>
+<p>9、异常处理注意： <br>
     不要轻易忽略捕获的异常； <br>
     不要简单地捕获顶层的Exception； <br>
     不要用Exception作流程控制。</p>
