@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+1.	do-while循环至少循环一次；for与while是永远等价的；一般写语句都加上大括号；选择：有固定次数用for；如果必须执行一次，用do…while()；其他情况用while()。
+2.	编写程序流程：变量->算法->程序流程图->编写
+3.	break和continue的区别：break跳出循环，continue跳出本次循环，步进加一，继续下次循环；
+4.	在多重循环过程中，循环如果想要跳出的话，可以在循环前加标号（如lable：），然后在相应的循环中使用该标号，使用break和continue对其操作；
+5.	逻辑类型的优先级为！> && > ||;
+6.	数组申请：int[] arr = new int[100]; 元素类型是确定的，元素个数是必须给出，元素个数可以是变量；
+7.	Java中编译器不会检查数组中是否用了有效的下标，但在运行的时候抛出异常；
+8.	数组的长度在循环中最好使用arr.length（获取数组的大小），这样具有可扩展性代码；
+9.	数组变量是数组的管理权限，如果数组变量赋值只能表示a和b都能管理这个数组，如果要实现数组的复制必须利用数组的遍历；
+10.	遍历数组时可以用for循环也可以用for-each循环，但是for-each循环中不能获得小标，也不能修改数组，可以读出数组中的元素；
+11.	Java也用Unicode编码，字母和数字在Unicode表中是顺序排序的；
+12.	逃逸字符：\b：回退一格，并不是删除；\t：从下一个制表符开始；
+13.	包裹类型：boolean ->Boolean;  int->Integer;  char->Character; double->Double；
+14.	String 是一个类，String变量是对象的管理者而不是所有者；输入方式：in.next()为一个单词（表示为空格），而in.nextLine()为一行；
+15.	比较：==比较的是不是指向同一个对象，而equals比较的是内容是否相同；但跟数组不同的是，管理者可以改变原管理者的内容，而字符串只是地址发生了变化，内容不能改变；
+16.	字符串.操作：s1.compareTo(s2)比较大小1，0，-1；s.length()获得长度；           s.charAt(index)访问字符串中的字符； 字符串不能用for-each循环，可枚举的才可以用；
+a)	s.substring(index)获得子串，从index开始；s.substring(2,4)从2开始到4之前结束，即不包含尾部；s.indexOf(c)：寻找c，返回c开始出现的位置，否则为-1； s.index(c, loc+1)表示从loc+1开始寻找； 相应的有s.lastIndexOf(c)从右向左找；
+b)	s.startsWith(t); s.endsWith(t);   s.replace(c1, c2);   s.trim()把字符串两端的空格删掉； s.toUpperCase();  s.toLowerCase();
+17.	上面所有的操作都不是修改s本身，而是制造出新的字符串，字符串本身是不可修改的；
+18.	Math类：提供基本的数学操作，abs绝对值，pow幂次，random随机数，round四舍五入
+19.	类型不匹配的情况：char->int->double，宽的可以接收窄的，编译器自动转换；
+20.	本地变量没有默认的初始化。
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<ol>
+<li>do-while循环至少循环一次；for与while是永远等价的；一般写语句都加上大括号；选择：有固定次数用for；如果必须执行一次，用do…while()；其他情况用while()。</li>
+<li>编写程序流程：变量-&gt;算法-&gt;程序流程图-&gt;编写</li>
+<li>break和continue的区别：break跳出循环，continue跳出本次循环，步进加一，继续下次循环；</li>
+<li>在多重循环过程中，循环如果想要跳出的话，可以在循环前加标号（如lable：），然后在相应的循环中使用该标号，使用break和continue对其操作；</li>
+<li>逻辑类型的优先级为！&gt; &amp;&amp; &gt; ||;</li>
+<li>数组申请：int[] arr = new int[100]; 元素类型是确定的，元素个数是必须给出，元素个数可以是变量；</li>
+<li>Java中编译器不会检查数组中是否用了有效的下标，但在运行的时候抛出异常；</li>
+<li>数组的长度在循环中最好使用arr.length（获取数组的大小），这样具有可扩展性代码；</li>
+<li>数组变量是数组的管理权限，如果数组变量赋值只能表示a和b都能管理这个数组，如果要实现数组的复制必须利用数组的遍历；</li>
+<li>遍历数组时可以用for循环也可以用for-each循环，但是for-each循环中不能获得小标，也不能修改数组，可以读出数组中的元素；</li>
+<li>Java也用Unicode编码，字母和数字在Unicode表中是顺序排序的；</li>
+<li>逃逸字符：\b：回退一格，并不是删除；\t：从下一个制表符开始；</li>
+<li>包裹类型：boolean -&gt;Boolean;  int-&gt;Integer;  char-&gt;Character; double-&gt;Double；</li>
+<li>String 是一个类，String变量是对象的管理者而不是所有者；输入方式：in.next()为一个单词（表示为空格），而in.nextLine()为一行；</li>
+<li>比较：==比较的是不是指向同一个对象，而equals比较的是内容是否相同；但跟数组不同的是，管理者可以改变原管理者的内容，而字符串只是地址发生了变化，内容不能改变；</li>
+<li>字符串.操作：s1.compareTo(s2)比较大小1，0，-1；s.length()获得长度；           s.charAt(index)访问字符串中的字符； 字符串不能用for-each循环，可枚举的才可以用；
+a)    s.substring(index)获得子串，从index开始；s.substring(2,4)从2开始到4之前结束，即不包含尾部；s.indexOf(c)：寻找c，返回c开始出现的位置，否则为-1； s.index(c, loc+1)表示从loc+1开始寻找； 相应的有s.lastIndexOf(c)从右向左找；
+b)    s.startsWith(t); s.endsWith(t);   s.replace(c1, c2);   s.trim()把字符串两端的空格删掉； s.toUpperCase();  s.toLowerCase();</li>
+<li>上面所有的操作都不是修改s本身，而是制造出新的字符串，字符串本身是不可修改的；</li>
+<li>Math类：提供基本的数学操作，abs绝对值，pow幂次，random随机数，round四舍五入</li>
+<li>类型不匹配的情况：char-&gt;int-&gt;double，宽的可以接收窄的，编译器自动转换；</li>
+<li>本地变量没有默认的初始化。</li>
+</ol>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "java-record.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
