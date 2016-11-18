@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+Maven 5分钟入门总结
+一、	准备
+1.	Java安装：Maven是java管理工具，要提前安装好java，java版本没有要求。
+
+ gaoaoru@gaoaoru-Lenovo:~$ java -version
+java version "1.7.0_95"
+OpenJDK Runtime Environment (IcedTea 2.6.4) (7u95-2.6.4-0ubuntu0.15.04.1)
+OpenJDK 64-Bit Server VM (build 24.95-b01, mixed mode)
+2.	Maven安装：如果Linux系统可以使用sudo apt-get install maven命令行进行自动安装，安装成功显示如下。
+
+gaoaoru@gaoaoru-Lenovo:~$ mvn --version
+Apache Maven 3.0.5
+Maven home: /usr/share/maven
+Java version: 1.7.0_95, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.19.0-74-generic", arch: "amd64", family: "unix" 
+
+二、	创建项目
+
+1.	运行下列命令：（第一次运行需要耗费比较长的时间，因为需要从远程服务下载jars和files到本地数据库）运行结束后，会生成相应的目标目录my-app。
+
+2.	查看生成的目标目录my-app，src/main/java包含项目源代码，src/test/java包含测试源代码，pom.xml是项目的项目对象模型。
+
+3.	POM文件细说：POM文件Maven中项目的配置文件，包含创建一个工程所需的主要信息，并不许需要理解其中所有内容，只要能够有效利用它即可。POM文件内容为：
+
+4.	如何Build？：只需要命令行mvn package即可，命令简单但过程中会下载很多资源。显示过程如下（中间省略了部分内容）。
+  
+5.	测试新编译的和打包的JAR： 
+执行成功，会输出Hello World！因为src/main/java中的源码文件为：
+ 
+三、	Maven Phases
+ 
+详细内容可见：
+https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+再介绍两个命令：
+
+1、	mvn site：基于pom中的项目信息生成一个网站
+ 
+2、	mvn clean dependency:copy-dependencies package：这个命令将清除项目、复制依赖和包项目。（也需要跟执行的时候执行到包，需要较长时间）
+
+链接：http://gaobaoru.lofter.com/post/1e81e58b_cf8b9c7
+  
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>Maven 5分钟入门总结
+一、    准备
+1.    Java安装：Maven是java管理工具，要提前安装好java，java版本没有要求。</p>
+
+<p>gaoaoru@gaoaoru-Lenovo:~$ java -version
+java version "1.7.0_95"
+OpenJDK Runtime Environment (IcedTea 2.6.4) (7u95-2.6.4-0ubuntu0.15.04.1)
+OpenJDK 64-Bit Server VM (build 24.95-b01, mixed mode)
+2.    Maven安装：如果Linux系统可以使用sudo apt-get install maven命令行进行自动安装，安装成功显示如下。</p>
+
+<p>gaoaoru@gaoaoru-Lenovo:~$ mvn --version
+Apache Maven 3.0.5
+Maven home: /usr/share/maven
+Java version: 1.7.0<em>95, vendor: Oracle Corporation
+Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
+Default locale: en</em>US, platform encoding: UTF-8
+OS name: "linux", version: "3.19.0-74-generic", arch: "amd64", family: "unix" </p>
+
+<p>二、    创建项目</p>
+
+<ol>
+<li><p>运行下列命令：（第一次运行需要耗费比较长的时间，因为需要从远程服务下载jars和files到本地数据库）运行结束后，会生成相应的目标目录my-app。</p></li>
+<li><p>查看生成的目标目录my-app，src/main/java包含项目源代码，src/test/java包含测试源代码，pom.xml是项目的项目对象模型。</p></li>
+<li><p>POM文件细说：POM文件Maven中项目的配置文件，包含创建一个工程所需的主要信息，并不许需要理解其中所有内容，只要能够有效利用它即可。POM文件内容为：</p></li>
+<li><p>如何Build？：只需要命令行mvn package即可，命令简单但过程中会下载很多资源。显示过程如下（中间省略了部分内容）。</p></li>
+<li><p>测试新编译的和打包的JAR： 
+执行成功，会输出Hello World！因为src/main/java中的源码文件为：</p></li>
+</ol>
+
+<p>三、    Maven Phases</p>
+
+<p>详细内容可见：
+https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html</p>
+
+<p>再介绍两个命令：</p>
+
+<p>1、    mvn site：基于pom中的项目信息生成一个网站</p>
+
+<p>2、    mvn clean dependency:copy-dependencies package：这个命令将清除项目、复制依赖和包项目。（也需要跟执行的时候执行到包，需要较长时间）</p>
+
+<p>链接：</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "maven-base.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
