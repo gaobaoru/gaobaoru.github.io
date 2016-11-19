@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="Keywords" content="blog"/>
+    <meta name="Description" content="blog"/>
+    <title>Simple</title>
+    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="stylesheet" type="text/css" href="/main.css" />
+</head>
+<body>
+<div class="main">
+    <div class="header">
+    	<ul id="pages">
+            <li><a href="/">home</a></li>
+            <li><a href="/#/tags">tags</a></li>
+            <li><a href="/#/archive">archive</a></li>
+    	</ul>
+    </div>
+	<div class="wrap-header">
+	<h1>
+    <a href="/" id="title"></a>
+	</h1>
+	</div>
+<div id="md" style="display: none;">
+<!-- markdown -->
+
+Git是一个分布式的版本控制系统，允许一群人同时在相同的文档进行协同工作。写下这篇文章引导小白快速入门Git，掌握Git基本命令行和用法。
+
+1.	初始化Git存储库，目录名称取为”octobox”。
+ 
+2.	Git提示我们：现在octobox目录现在是空库，Git存储库是一个隐藏目录，可以输入git status命令查看我们的项目的当前状态是:
+ 
+3.	创建了一个名为octocat的文件在octobox存储库中：
+ 
+4.	再次运行git status命令查看存储库状态发生了变化
+ 
+5.	Git仓库正常工作，Git提示新添加octocat.txt是Untracked，需要将其添加到暂存区，用git add命令：
+ 
+6.	再次运行git status，查看状态变化：
+ 
+7.	Git提示“Changes to be committed”,列出的文件只是添加在暂存区内，还没有存储在仓库中。在要保存于仓库之前可以进行添加和删除，为了描述在暂存区的改变，可以运行git commit 命令
+ 
+8.	如果有很多相同类型的文件，可以使用通配符。现在创建了octofamily文件夹，其中有很多.txt文件。
+ 
+ 
+9.	在暂存区添加了所有的.txt文件，现在需要commit 所有的变化：
+ 
+10.	进行了几次commit之后（可以已经混淆），可以查看日志log回顾：
+ 
+11.	前面的操作已经创建了一个本地仓库，现在需要将我们的本地仓库push到GitHUb服务器上，我们创建了一个新的空远程库try_git.git，现在需要建立远程连接：
+ 
+12.	经过上面的准备，现在就可以远程push了，将本地的变化push到远程origin库上。本地默认分支为master，-u提示Git记住这些参数，下次直接运行git push即可。
+ 
+13.	假如我们邀请其他人来我们的GitHub项目pull你的改变，commit他们的描述，并且push。可以通过git pull命令查看：
+ 
+14.	可以看出进行了改变，想看看与我上一次的提交内容的差别，可以用git diff命令查看：
+ 
+15.	命令diff 的另一个用户就是查看暂存区内文件的变化，暂存区内的文件是准备好去commit，先向暂存区添加文件octodog.txt：
+ 
+16.	现在可以运行git diff –staged查看暂存区内的变化：
+ 
+17.	当然如果只是提交错误的，可以用git reset命令进行删除操作：
+ 
+18.	可以进行撤销Undo操作，可以用命令git checkout将文件返回上次提交的内容：
+ 
+19.	默认分支为master，我们可以用命令git branch创建新的分支clean_up，同时用命令git checkout切换到分支clean_up:
+ 
+20.	在clean_up分支上删除所有.txt文件进行改变，并且commit：
+  
+21.	现在转换到主分支master，同时利用命令git merge clean_up进行merge分支clean_up的变化：
+ 
+ 
+22.	在Merge之后，分支clean_up已经没有用了，可以进行删除git branch –d ，同时进行最终的push：
+ 
+
+详细内容查看Github的入门教程：https://try.github.io
+
+
+<!-- markdown end -->
+</div>
+<div class="entry" id="main">
+<!-- content -->
+<p>Git是一个分布式的版本控制系统，允许一群人同时在相同的文档进行协同工作。写下这篇文章引导小白快速入门Git，掌握Git基本命令行和用法。</p>
+
+<ol>
+<li><p>初始化Git存储库，目录名称取为”octobox”。</p></li>
+<li><p>Git提示我们：现在octobox目录现在是空库，Git存储库是一个隐藏目录，可以输入git status命令查看我们的项目的当前状态是:</p></li>
+<li><p>创建了一个名为octocat的文件在octobox存储库中：</p></li>
+<li><p>再次运行git status命令查看存储库状态发生了变化</p></li>
+<li><p>Git仓库正常工作，Git提示新添加octocat.txt是Untracked，需要将其添加到暂存区，用git add命令：</p></li>
+<li><p>再次运行git status，查看状态变化：</p></li>
+<li><p>Git提示“Changes to be committed”,列出的文件只是添加在暂存区内，还没有存储在仓库中。在要保存于仓库之前可以进行添加和删除，为了描述在暂存区的改变，可以运行git commit 命令</p></li>
+<li><p>如果有很多相同类型的文件，可以使用通配符。现在创建了octofamily文件夹，其中有很多.txt文件。</p></li>
+<li><p>在暂存区添加了所有的.txt文件，现在需要commit 所有的变化：</p></li>
+<li><p>进行了几次commit之后（可以已经混淆），可以查看日志log回顾：</p></li>
+<li><p>前面的操作已经创建了一个本地仓库，现在需要将我们的本地仓库push到GitHUb服务器上，我们创建了一个新的空远程库try_git.git，现在需要建立远程连接：</p></li>
+<li><p>经过上面的准备，现在就可以远程push了，将本地的变化push到远程origin库上。本地默认分支为master，-u提示Git记住这些参数，下次直接运行git push即可。</p></li>
+<li><p>假如我们邀请其他人来我们的GitHub项目pull你的改变，commit他们的描述，并且push。可以通过git pull命令查看：</p></li>
+<li><p>可以看出进行了改变，想看看与我上一次的提交内容的差别，可以用git diff命令查看：</p></li>
+<li><p>命令diff 的另一个用户就是查看暂存区内文件的变化，暂存区内的文件是准备好去commit，先向暂存区添加文件octodog.txt：</p></li>
+<li><p>现在可以运行git diff –staged查看暂存区内的变化：</p></li>
+<li><p>当然如果只是提交错误的，可以用git reset命令进行删除操作：</p></li>
+<li><p>可以进行撤销Undo操作，可以用命令git checkout将文件返回上次提交的内容：</p></li>
+<li><p>默认分支为master，我们可以用命令git branch创建新的分支clean<em>up，同时用命令git checkout切换到分支clean</em>up:</p></li>
+<li><p>在clean_up分支上删除所有.txt文件进行改变，并且commit：</p></li>
+<li><p>现在转换到主分支master，同时利用命令git merge clean<em>up进行merge分支clean</em>up的变化：</p></li>
+<li><p>在Merge之后，分支clean_up已经没有用了，可以进行删除git branch –d ，同时进行最终的push：</p></li>
+</ol>
+
+<p>详细内容查看Github的入门教程：https://try.github.io</p>
+<!-- content end -->
+</div>
+<br>
+<br>
+    <div id="disqus_thread"></div>
+	<div class="footer">
+		<p>© Copyright 2014 by isnowfy, Designed by isnowfy</p>
+	</div>
+</div>
+<script src="main.js"></script>
+<script id="content" type="text/mustache">
+    <h1>{{title}}</h1>
+    <div class="tag">
+    {{date}}
+    {{#tags}}
+    <a href="/#/tag/{{name}}">#{{name}}</a>
+    {{/tags}}
+    </div>
+</script>
+<script id="pagesTemplate" type="text/mustache">
+    {{#pages}}
+    <li>
+        <a href="{{path}}">{{title}}</a>
+    </li>
+    {{/pages}}
+</script>
+<script>
+$(document).ready(function() {
+    $.ajax({
+        url: "main.json",
+        type: "GET",
+        dataType: "json",
+        success: function(data) {
+            $("#title").html(data.name);
+            var pagesTemplate = Hogan.compile($("#pagesTemplate").html());
+            var pagesHtml = pagesTemplate.render({"pages": data.pages});
+            $("#pages").append(pagesHtml);
+            //path
+            var path = "git-base.html";
+            //path end
+            var now = 0;
+            for (var i = 0; i < data.posts.length; ++i)
+                if (path == data.posts[i].path)
+                    now = i;
+            var post = data.posts[now];
+            var tmp = post.tags.split(" ");
+            var tags = [];
+            for (var i = 0; i < tmp.length; ++i)
+                if (tmp[i].length > 0)
+                    tags.push({"name": tmp[i]});
+            var contentTemplate = Hogan.compile($("#content").html());
+            var contentHtml = contentTemplate.render({"title": post.title, "tags": tags, "date": post.date});
+            $("#main").prepend(contentHtml);
+            if (data.disqus_shortname.length > 0) {
+                var disqus_shortname = data.disqus_shortname;
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            }
+        }
+    });
+});
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ["\\(", "\\)"]], processEscapes: true}});
+</script>
+</body>
+</html>
